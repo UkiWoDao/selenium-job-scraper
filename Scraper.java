@@ -10,45 +10,32 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import jobScraper.StData;
-import jobScraper.Filter;
-import jobScraper.WriteFile;
+import jobScraper.StElems;
 
 public class Scraper {
 	
-	// TODO: make option whether to search by different criteria (pad/unpaid, internship/fulltime job, etc)
-	
-	public static void main(String[] args) throws IOException {
+	// TODO: make option whether to search by different criteria (pad/unpaid, internship/fulltime job, etc)	
+	public static void main(String[] args) {
 		
-		// set up webdriver
-		System.setProperty("webdriver.gecko.driver", "C:\\Users\\Uros\\eclipse-workspace\\selenium\\src\\jobScraper\\geckodriver.exe");
+//		/* set up web driver */
+//		// find your working directory
+////		System.out.println(System.getProperty("user.dir"));
+//		
+//		// setProperty if not using environment variable for your web driver engine
+		System.setProperty("webdriver.gecko.driver", System.getProperty("user.dir") + "\\src\\jobScraper\\geckodriver.exe");
 		WebDriver driver = new FirefoxDriver();
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		
-		// open browser/fetch page
-		driver.get(StData.getUrlPr());
-		
-		// target ad container
-		WebElement p = driver.findElement(By.xpath(StData.getTargetContainer()));
-		
-		// filter h3 by location keyword
-		List<WebElement> r = p.findElements(By.xpath("//h3[text()[contains(., '" + StData.getLocation() + "')]]"));
-		List<WebElement> q = p.findElements(By.xpath("//h3[text()[contains(., '" + StData.getLocation() + "')]]/following-sibling::ul"));
-		
+		driver.get(StData.getUrlInt());
+
+		// target h3 by keyword
+		List<WebElement> p = StElems.filterByLocation(driver);
+
 		// grab ad content after h3
-		for(WebElement e : q) {
+		for(WebElement e : p) {
 			System.out.println(e.getText());
 		}
 		
-		WriteFile data = new WriteFile("test");
-		
-		try {
-			data.writeToFile("test");
-		} 
-		catch(IOException ex)
-		{
-			ex.printStackTrace();
-			System.out.println("Wrong!");
-		}
-
+		driver.quit();
 	}
 }
