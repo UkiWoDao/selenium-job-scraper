@@ -22,16 +22,16 @@ public class Scrape {
 		File driverFile = new File("C:\\chromedriver.exe");
 		System.setProperty("webdriver.chrome.driver", driverFile.getAbsolutePath());
 		
-		WebDriver driver = new ChromeDriver();
+		WebDriver d = new ChromeDriver();
 //		WebDriverWait wait = new WebDriverWait(driver, 5);
 		
-		driver.get(Data.getUrl());
+		d.get(Data.getUrl());
 		
 		String location = "Beograd";
 		
 		// target h3 and ul by keyword parameter
-		List<WebElement> p = WebElements.getH3(driver, location);
-		List<WebElement> q = WebElements.getUl(driver, location);
+		List<WebElement> p = WebElements.getH3(d, location);
+		List<WebElement> q = WebElements.getUl(d, location);
 		
 //		Filter.byKeywords(p, Filter.keywords);
 			
@@ -41,6 +41,6 @@ public class Scrape {
 			System.out.println("----------------------------------------------");
 		}
 		
-		driver.quit();
+		d.quit();
 	}
 }
