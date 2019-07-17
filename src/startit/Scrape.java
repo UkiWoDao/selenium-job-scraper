@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import startit.Data;
 import startit.WebElements;
 
-public class Scraper {
+public class Scrape {
 	
 	// TODO: make option whether to search by different criteria (paid/unpaid, internship/fulltime job, etc)	
 	public static void main(String[] args) {
@@ -23,24 +23,18 @@ public class Scraper {
 		System.setProperty("webdriver.chrome.driver", driverFile.getAbsolutePath());
 		
 		WebDriver driver = new ChromeDriver();
-		WebDriverWait wait = new WebDriverWait(driver, 5);
+//		WebDriverWait wait = new WebDriverWait(driver, 5);
 		
 		driver.get(Data.getUrl());
 		
 		String location = "Beograd";
 		
-		// target h3 by keyword
+		// target h3 and ul by keyword parameter
 		List<WebElement> p = WebElements.getH3(driver, location);
 		List<WebElement> q = WebElements.getUl(driver, location);
 		
 //		Filter.byKeywords(p, Filter.keywords);
-		
-//		// grab ad content after h3
-//		for(WebElement e : p) {
-//			System.out.println(e.getText());
-//			System.out.println("----------------------------------------------");
-//		}
-		
+			
 		for(int i = 0; i < p.size(); i++) {
 			System.out.println(p.get(i).getText());
 			System.out.println(q.get(i).getText());
